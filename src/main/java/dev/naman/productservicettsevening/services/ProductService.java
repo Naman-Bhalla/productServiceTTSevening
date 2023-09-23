@@ -1,16 +1,32 @@
 package dev.naman.productservicettsevening.services;
 
 import dev.naman.productservicettsevening.dtos.ProductDto;
+import dev.naman.productservicettsevening.models.Category;
+import dev.naman.productservicettsevening.models.Product;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 public interface ProductService {
-    String getAllProducts();
+    List<Product> getAllProducts();
 
-    String getSingleProduct(Long productId);
+    Product getSingleProduct(Long productId);
 
-    String addNewProduct(ProductDto productDto);
+    Product addNewProduct(ProductDto product);
 
-    String updateProduct(Long productId);
+    /*
+    Product object has only those fields filled which need to be updated.
+    Everything else is null
+     */
+    Product updateProduct(Long productId, Product product);
+    // if (product.getImageUrl() != null) {
+    //
+    // }
 
-    String deleteProduct(Long productId);
+    boolean deleteProduct(Long productId);
 }
+
+// update product with id 123
+// {
+//   name: iPhone 15
+// }
