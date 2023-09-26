@@ -22,6 +22,7 @@ public interface ProductService {
     // if (product.getImageUrl() != null) {
     //
     // }
+    Product replaceProduct(Long productId, Product product);
 
     boolean deleteProduct(Long productId);
 }

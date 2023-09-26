@@ -1,6 +1,7 @@
 package dev.naman.productservicettsevening.controllers;
 
 import dev.naman.productservicettsevening.dtos.ProductDto;
+import dev.naman.productservicettsevening.models.Category;
 import dev.naman.productservicettsevening.models.Product;
 import dev.naman.productservicettsevening.services.ProductService;
 import org.springframework.http.HttpStatus;
@@ -61,9 +62,18 @@ public class ProductController {
         return response;
     }
 
-    @PutMapping("/{productId}")
-    public String updateProduct(@PathVariable("productId") Long productId) {
-        return "Updating product";
+    @PatchMapping("/{productId}")
+    public Product updateProduct(@PathVariable("productId") Long productId,
+                                 @RequestBody ProductDto productDto) {
+        Product product = new Product();
+        product.setId(productDto.getId());
+        product.setCategory(new Category());
+        product.getCategory().setName(productDto.getCategory());
+        product.setTitle(productDto.getTitle());
+        product.setPrice(productDto.getPrice());
+        product.setDescription(productDto.getDescription());
+
+        return productService.updateProduct(productId, product);
     }
 
     @DeleteMapping("/{productId}")
