@@ -1,5 +1,6 @@
-package dev.naman.productservicettsevening.dtos;
+package dev.naman.productservicettsevening.clients.fakestoreapi;
 
+import dev.naman.productservicettsevening.dtos.RatingDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

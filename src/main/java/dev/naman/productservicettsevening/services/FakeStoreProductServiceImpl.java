@@ -1,6 +1,7 @@
 package dev.naman.productservicettsevening.services;
 
-import dev.naman.productservicettsevening.dtos.FakeStoreProductDto;
+import dev.naman.productservicettsevening.clients.fakestoreapi.FakeStoreClient;
+import dev.naman.productservicettsevening.clients.fakestoreapi.FakeStoreProductDto;
 import dev.naman.productservicettsevening.dtos.ProductDto;
 import dev.naman.productservicettsevening.models.Category;
 import dev.naman.productservicettsevening.models.Product;
@@ -20,9 +21,11 @@ import java.util.*;
 @Service
 public class FakeStoreProductServiceImpl implements ProductService {
     private RestTemplateBuilder restTemplateBuilder;
+    private FakeStoreClient fakeStoreClient;
 
-    public FakeStoreProductServiceImpl(RestTemplateBuilder restTemplateBuilder) {
+    public FakeStoreProductServiceImpl(RestTemplateBuilder restTemplateBuilder, FakeStoreClient fakeStoreClient) {
         this.restTemplateBuilder = restTemplateBuilder;
+        this.fakeStoreClient = fakeStoreClient;
     }
 
     private <T> ResponseEntity<T> requestForEntity(HttpMethod httpMethod, String url, @Nullable Object request,
@@ -50,17 +53,11 @@ public class FakeStoreProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
-        RestTemplate restTemplate = restTemplateBuilder.build();
-
-        ResponseEntity<FakeStoreProductDto[]> l = restTemplate.getForEntity(
-                "https://fakestoreapi.com/products",
-                FakeStoreProductDto[].class
-        );
+        List<FakeStoreProductDto> fakeStoreProductDtos = fakeStoreClient.getAllProducts();
 
         List<Product> answer = new ArrayList<>();
 
-        for (FakeStoreProductDto productDto: l.getBody()) {
-
+        for (FakeStoreProductDto productDto: fakeStoreProductDtos) {
             answer.add(convertFakeStoreProductDtoToProduct(productDto));
         }
 
@@ -73,7 +70,7 @@ public class FakeStoreProductServiceImpl implements ProductService {
     correct.
      */
     @Override
-    public Product getSingleProduct(Long productId) {
+    public Optional<Product> getSingleProduct(Long productId) {
         RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductDto> response =  restTemplate.getForEntity(
                 "https://fakestoreapi.com/products/{id}",
@@ -81,7 +78,11 @@ public class FakeStoreProductServiceImpl implements ProductService {
 
         FakeStoreProductDto productDto = response.getBody();
 
-        return convertFakeStoreProductDtoToProduct(productDto);
+        if (productDto == null) {
+            return Optional.empty();
+        }
+
+        return Optional.of(convertFakeStoreProductDtoToProduct(productDto));
     }
 
     @Override

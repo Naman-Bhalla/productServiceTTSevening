@@ -1,6 +1,8 @@
 package dev.naman.productservicettsevening.controllers;
 
+import dev.naman.productservicettsevening.dtos.ErrorResponseDto;
 import dev.naman.productservicettsevening.dtos.ProductDto;
+import dev.naman.productservicettsevening.exceptions.NotFoundException;
 import dev.naman.productservicettsevening.models.Category;
 import dev.naman.productservicettsevening.models.Product;
 import dev.naman.productservicettsevening.services.ProductService;
@@ -11,6 +13,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")
@@ -27,12 +30,28 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<Product> getSingleProduct(@PathVariable("productId") Long productId) {
+    public ResponseEntity<Product> getSingleProduct(@PathVariable("productId") Long productId) throws NotFoundException {
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
 
         headers.add(
                 "auth-token", "noaccess4uheyhey"
         );
+
+//        try {
+        Optional<Product> productOptional = productService.getSingleProduct(productId);
+//        } catch (Exception e) {
+//            throw e;
+//        }
+//
+//        if (product == null) {
+//
+//        }
+
+//        Product product = productOptional.get();
+
+        if (productOptional.isEmpty()) {
+            throw new NotFoundException("No Product with product id: " + productId);
+        }
 
         ResponseEntity<Product> response = new ResponseEntity(
                 productService.getSingleProduct(productId),
@@ -80,4 +99,12 @@ public class ProductController {
     public String deleteProduct(@PathVariable("productId") Long productId) {
         return "Deleting a product with id: " + productId;
     }
+
+//    @ExceptionHandler(NotFoundException.class)
+//    public ResponseEntity<ErrorResponseDto> naman(Exception exception) {
+//        ErrorResponseDto errorResponseDto = new ErrorResponseDto();
+//        errorResponseDto.setErrorMessage(exception.getMessage());
+//
+//        return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
+//    }
 }
