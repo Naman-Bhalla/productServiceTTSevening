@@ -1,3 +1,12 @@
+## Creating Database
+
+```markdown
+create database productservice3oct23;
+create user productservice3oct23;
+grant all privileges on productservice3oct23.* to productservice3oct23;
+```
+
+
 ## Assignments
 
 ### 21st September 2023
