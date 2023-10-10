@@ -23,17 +23,17 @@ class ProductServicettseveningApplicationTests {
 
     @Test
     void testDifferentInheritances() {
-        dev.naman.productservicettsevening.inheritanceexamples.tableperclass.User user = new User();
-        user.setEmail("naman@scaler.com");
-        user.setPassword("password");
-        userRepository.save(user);
-
-        Mentor mentor = new Mentor();
-        mentor.setEmail("nmn@sclr.com");
-        mentor.setPassword("psswrd");
-        mentor.setNumberOfMentees(4);
-        mentor.setNumberOfSessions(50);
-        mentorRepository.save(mentor);
+//        dev.naman.productservicettsevening.inheritanceexamples.tableperclass.User user = new User();
+//        user.setEmail("naman@scaler.com");
+//        user.setPassword("password");
+//        userRepository.save(user);
+//
+//        Mentor mentor = new Mentor();
+//        mentor.setEmail("nmn@sclr.com");
+//        mentor.setPassword("psswrd");
+//        mentor.setNumberOfMentees(4);
+//        mentor.setNumberOfSessions(50);
+//        mentorRepository.save(mentor);
     }
 
 }

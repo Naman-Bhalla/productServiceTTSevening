@@ -1,9 +1,6 @@
 package dev.naman.productservicettsevening.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +14,18 @@ public class Category extends BaseModel {
     private String name;
 //    @Column
     private String description;
-    @OneToMany(mappedBy = "category")
+
+    // C : P
+    // 1 : m
+    // 1 : 1
+    // 1 : m
+
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.REMOVE})
     private List<Product> products;
+
+//    @OneToOne
+//    @OneToMany
+//    @ManyToOne
+//    @ManyToMany
+
 }
