@@ -1,0 +1,2 @@
+ALTER TABLE dummy
+    ADD name VARCHAR(255) NULL;

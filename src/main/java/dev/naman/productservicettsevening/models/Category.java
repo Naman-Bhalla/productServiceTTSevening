@@ -18,6 +18,7 @@ public class Category extends BaseModel {
     private String name;
 //    @Column
     private String description;
+//    private Dummy dummy;
 
     // C : P
     // 1 : m

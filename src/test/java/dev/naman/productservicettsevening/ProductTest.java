@@ -3,6 +3,7 @@ package dev.naman.productservicettsevening;
 import dev.naman.productservicettsevening.models.Category;
 import dev.naman.productservicettsevening.models.Product;
 import dev.naman.productservicettsevening.repositories.CategoryRepository;
+import dev.naman.productservicettsevening.repositories.ProductDBDTo;
 import dev.naman.productservicettsevening.repositories.ProductRepository;
 import dev.naman.productservicettsevening.services.SelfProductService;
 import jakarta.transaction.Transactional;
@@ -132,6 +133,13 @@ public class ProductTest {
     @Test
     void checkWorkingFine() {
 
+        List<Product> products = selfProductService.getAllProducts();
+    }
+
+    @Test
+    public void demonstrateCustomQueries() {
+//        List<ProductDBDTo> productDBDTos = productRepository.laaoProductsWithId(303L);
+        List<Product> products = productRepository.getByIdAndTitle(1L, "hi");
 
     }
 }
