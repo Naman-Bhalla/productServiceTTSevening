@@ -7,6 +7,7 @@ import dev.naman.productservicettsevening.models.Category;
 import dev.naman.productservicettsevening.models.Product;
 import dev.naman.productservicettsevening.repositories.ProductRepository;
 import dev.naman.productservicettsevening.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
@@ -19,17 +20,20 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
+
     private ProductService productService;
     private ProductRepository productRepository;
 
-    public ProductController( ProductService productService, ProductRepository productRepository) {
+    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService, ProductRepository productRepository) {
         this.productRepository = productRepository;
         this.productService = productService;
     }
 
     @GetMapping()
     public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+        List<Product> products = productService.getAllProducts();
+        products.get(0).setPrice(100); /// Bug induced in my code
+        return products;
     }
 
     @GetMapping("/{productId}")
