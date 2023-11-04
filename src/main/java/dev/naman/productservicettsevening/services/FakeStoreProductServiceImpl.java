@@ -6,6 +6,7 @@ import dev.naman.productservicettsevening.dtos.ProductDto;
 import dev.naman.productservicettsevening.models.Category;
 import dev.naman.productservicettsevening.models.Product;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -19,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 
 @Service(value = "fakeStoreProductService")
+//@Primary
 public class FakeStoreProductServiceImpl implements ProductService {
     private RestTemplateBuilder restTemplateBuilder;
     private FakeStoreClient fakeStoreClient;

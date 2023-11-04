@@ -24,7 +24,7 @@ public class ProductController {
     private ProductService productService;
     private ProductRepository productRepository;
 
-    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService, ProductRepository productRepository) {
+    public ProductController(ProductService productService, ProductRepository productRepository) {
         this.productRepository = productRepository;
         this.productService = productService;
     }
@@ -32,7 +32,7 @@ public class ProductController {
     @GetMapping()
     public List<Product> getAllProducts() {
         List<Product> products = productService.getAllProducts();
-        products.get(0).setPrice(100); /// Bug induced in my code
+//        products.get(0).setPrice(100); /// Bug induced in my code
         return products;
     }
 
