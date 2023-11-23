@@ -1,5 +1,9 @@
 package dev.naman.productservicettsevening.controllers;
 
+import dev.naman.productservicettsevening.clients.authenticationclient.AuthenticationClient;
+import dev.naman.productservicettsevening.clients.authenticationclient.dtos.Role;
+import dev.naman.productservicettsevening.clients.authenticationclient.dtos.SessionStatus;
+import dev.naman.productservicettsevening.clients.authenticationclient.dtos.ValidatetokenResponseDto;
 import dev.naman.productservicettsevening.dtos.ErrorResponseDto;
 import dev.naman.productservicettsevening.dtos.ProductDto;
 import dev.naman.productservicettsevening.exceptions.NotFoundException;
@@ -10,6 +14,7 @@ import dev.naman.productservicettsevening.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -24,16 +29,50 @@ public class ProductController {
     private ProductService productService;
     private ProductRepository productRepository;
 
-    public ProductController(ProductService productService, ProductRepository productRepository) {
+    private AuthenticationClient authenticationClient;
+
+    public ProductController( ProductService productService, ProductRepository productRepository, AuthenticationClient authenticationClient) {
         this.productRepository = productRepository;
         this.productService = productService;
+        this.authenticationClient = authenticationClient;
     }
 
+    // Make only admins be able to access all products
     @GetMapping()
-    public List<Product> getAllProducts() {
+    public ResponseEntity<List<Product>> getAllProducts(@Nullable @RequestHeader("AUTH_TOKEN") String token,
+                                                        @Nullable @RequestHeader("USER_ID") Long userId) {
+       // check if token exists
+        if (token == null || userId == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        ValidatetokenResponseDto response = authenticationClient.validate(token, userId);
+
+        // check if token is valid
+        if (response.getSessionStatus().equals(SessionStatus.INVALID)) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        // validate token
+        // RestTemplate rt = new RestTRemplate();
+        //  rt.get("localhost:9090/auth/validate?)
+
+        // check if user has permissions
+        boolean isUserAdmin = false;
+        for (Role role: response.getUserDto().getRoles()) {
+            if (role.getName().equals("ADMIN")) {
+                isUserAdmin = true;
+            }
+        }
+
+        if (!isUserAdmin) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
         List<Product> products = productService.getAllProducts();
+
 //        products.get(0).setPrice(100); /// Bug induced in my code
-        return products;
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @GetMapping("/{productId}")

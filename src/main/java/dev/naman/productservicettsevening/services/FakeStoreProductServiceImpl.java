@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 
 @Service(value = "fakeStoreProductService")
-//@Primary
+@Primary
 public class FakeStoreProductServiceImpl implements ProductService {
     private RestTemplateBuilder restTemplateBuilder;
     private FakeStoreClient fakeStoreClient;

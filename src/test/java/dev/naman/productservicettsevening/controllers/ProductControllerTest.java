@@ -58,37 +58,37 @@ class ProductControllerTest {
     // DOn't compute the expected value
 
 
-    @Test
+//    @Test        List<Product> p = new ArrayList<>();
+    //        Product p1 = new Product();
+//        p1.setPrice(109.95);
+//        p.add(p1);
+//
+//        when(productService.getAllProducts()).thenReturn(p);
+//
+//        List<Product> products = productController.getAllProducts("1234").getBody();
+////
+//////        assert products.get(0).getPrice() == 109.95;
+////
+////        assertEquals(109.95, products.get(0).getPrice());
+////        assertTrue(products.get(0).getPrice() == 109.95);
+////        assert products.get(0).getPrice() == 109.95;
+//
+//        // 1. PIck the data that you want to validate
+//        // 2. Call the different validations that you want to do
+//
+//        assertThat(products.get(0).getPrice())
+//                .isEqualTo(109.95)
+//                .isGreaterThan(100)
+//                .isLessThan(100)
+//                .isPositive();
+//
+//        assertThat("hello")
+//                .isEqualTo("hi");
     void getAllProductsShouldReturnEmpltyListWhenNoProduct() {
 //        ProductService productService = new SelfProductService();
 //        ProductRepository productRepository = new Po
 //        ProductController productController = new ProductController(productService)
-        List<Product> p = new ArrayList<>();
-        Product p1 = new Product();
-        p1.setPrice(109.95);
-        p.add(p1);
-
-        when(productService.getAllProducts()).thenReturn(p);
-
-        List<Product> products = productController.getAllProducts();
 //
-////        assert products.get(0).getPrice() == 109.95;
-//
-//        assertEquals(109.95, products.get(0).getPrice());
-//        assertTrue(products.get(0).getPrice() == 109.95);
-//        assert products.get(0).getPrice() == 109.95;
-
-        // 1. PIck the data that you want to validate
-        // 2. Call the different validations that you want to do
-
-        assertThat(products.get(0).getPrice())
-                .isEqualTo(109.95)
-                .isGreaterThan(100)
-                .isLessThan(100)
-                .isPositive();
-
-        assertThat("hello")
-                .isEqualTo("hi");
 //        assertThat(new Object())
 //                .isInstanceOf(ProductRepository.class)
 

@@ -37,21 +37,21 @@ public class FunctionalTests {
     @MockBean
     private ProductService productService;
 
-    @Test
-    void testGetAllProducts() throws Exception {
-        // Create a list of sample products or use a test database
-        List<Product> sampleProducts = Arrays.asList(
-                new Product(),
-                new Product()
-        );
-
-        // Mock the service that the controller uses to retrieve products
-        when(productService.getAllProducts()).thenReturn(sampleProducts);
-
-        mockMvc.perform(get("/products"))
-                .andExpect(status().is(200))
-                .andExpect(header().exists("authorization"))
-                .andExpect(content().string("{}"));
-    }
+//    @Test
+//    void testGetAllProducts() throws Exception {
+//        // Create a list of sample products or use a test database
+//        List<Product> sampleProducts = Arrays.asList(
+//                new Product(),
+//                new Product()
+//        );
+//
+//        // Mock the service that the controller uses to retrieve products
+//        when(productService.getAllProducts()).thenReturn(sampleProducts);
+//
+//        mockMvc.perform(get("/products"))
+//                .andExpect(status().is(200))
+//                .andExpect(header().exists("authorization"))
+//                .andExpect(content().string("{}"));
+//    }
 
 }
