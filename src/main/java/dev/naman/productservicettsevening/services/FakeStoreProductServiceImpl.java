@@ -7,6 +7,7 @@ import dev.naman.productservicettsevening.models.Category;
 import dev.naman.productservicettsevening.models.Product;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -24,10 +25,13 @@ import java.util.*;
 public class FakeStoreProductServiceImpl implements ProductService {
     private RestTemplateBuilder restTemplateBuilder;
     private FakeStoreClient fakeStoreClient;
+    private Map<Long, Object> fakeStoreProducts = new HashMap<>();
+    private RedisTemplate<Long, Object> redisTemplate;
 
-    public FakeStoreProductServiceImpl(RestTemplateBuilder restTemplateBuilder, FakeStoreClient fakeStoreClient) {
+    public FakeStoreProductServiceImpl(RestTemplateBuilder restTemplateBuilder, FakeStoreClient fakeStoreClient, RedisTemplate<Long, Object> redisTemplate) {
         this.restTemplateBuilder = restTemplateBuilder;
         this.fakeStoreClient = fakeStoreClient;
+        this.redisTemplate = redisTemplate;
     }
 
     private <T> ResponseEntity<T> requestForEntity(HttpMethod httpMethod, String url, @Nullable Object request,
@@ -73,13 +77,20 @@ public class FakeStoreProductServiceImpl implements ProductService {
      */
     @Override
     public Optional<Product> getSingleProduct(Long productId) {
+        FakeStoreProductDto fakeStoreProductDto = (FakeStoreProductDto) redisTemplate.opsForHash().get(productId, "PRODUCTS");
+
+        if (fakeStoreProductDto != null) {
+            return Optional.of(convertFakeStoreProductDtoToProduct(fakeStoreProductDto));
+        }
         RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductDto> response =  restTemplate.getForEntity(
                 "https://fakestoreapi.com/products/{id}",
                 FakeStoreProductDto.class, productId);
 
         FakeStoreProductDto productDto = response.getBody();
+//        fakeStoreProducts.put(productId, productDto);
 
+        redisTemplate.opsForHash().put(productId, "PRODUCTS", productDto);
         if (productDto == null) {
             return Optional.empty();
         }

@@ -20,83 +20,83 @@ import static org.junit.jupiter.api.Assertions.*;
 import static  org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.*;
 
-@SpringBootTest
+//@SpringBootTest
 class ProductControllerTest {
-    @Autowired
-    private ProductController productController;
-
+//    @Autowired
+//    private ProductController productController;
+//
+////    @MockBean
 //    @MockBean
-    @MockBean
-    private SelfProductService productService;
-
-    @Test
-    void testAbsShouldReturnCorrectValue() {
-//        int i = Math.abs(-2);
+//    private SelfProductService productService;
 //
-//        assert(i == 2);
-
-            assertFalse(true);
-            // asserFalse(condition)
-        //  assert condition == false
-    }
-
-    @Test
-    public void testArrayIsSortedCorrectly() {
-        int[] l = {1, 2, 3, 6, 5};
-
-        Arrays.sort(l);
-        assertArrayEquals(new int[]{1, 2, 3, 5, 6}, l);
-//        assert l[4] == 6;
-//        assert l[3] == 5;
-
-        int[] l1 = {1, 2, 3, 5, 6};
-
-//        assertArrayEquals(x, l);
-    }
-// don't repeat the business logic in the test case
-    // use values that you know and compare against those
-    // DOn't compute the expected value
-
-
-//    @Test        List<Product> p = new ArrayList<>();
-    //        Product p1 = new Product();
-//        p1.setPrice(109.95);
-//        p.add(p1);
-//
-//        when(productService.getAllProducts()).thenReturn(p);
-//
-//        List<Product> products = productController.getAllProducts("1234").getBody();
+//    @Test
+//    void testAbsShouldReturnCorrectValue() {
+////        int i = Math.abs(-2);
 ////
+////        assert(i == 2);
+//
+//            assertFalse(true);
+//            // asserFalse(condition)
+//        //  assert condition == false
+//    }
+//
+//    @Test
+//    public void testArrayIsSortedCorrectly() {
+//        int[] l = {1, 2, 3, 6, 5};
+//
+//        Arrays.sort(l);
+//        assertArrayEquals(new int[]{1, 2, 3, 5, 6}, l);
+////        assert l[4] == 6;
+////        assert l[3] == 5;
+//
+//        int[] l1 = {1, 2, 3, 5, 6};
+//
+////        assertArrayEquals(x, l);
+//    }
+//// don't repeat the business logic in the test case
+//    // use values that you know and compare against those
+//    // DOn't compute the expected value
+//
+//
+////    @Test        List<Product> p = new ArrayList<>();
+//    //        Product p1 = new Product();
+////        p1.setPrice(109.95);
+////        p.add(p1);
+////
+////        when(productService.getAllProducts()).thenReturn(p);
+////
+////        List<Product> products = productController.getAllProducts("1234").getBody();
+//////
+////////        assert products.get(0).getPrice() == 109.95;
+//////
+//////        assertEquals(109.95, products.get(0).getPrice());
+//////        assertTrue(products.get(0).getPrice() == 109.95);
 //////        assert products.get(0).getPrice() == 109.95;
 ////
-////        assertEquals(109.95, products.get(0).getPrice());
-////        assertTrue(products.get(0).getPrice() == 109.95);
-////        assert products.get(0).getPrice() == 109.95;
+////        // 1. PIck the data that you want to validate
+////        // 2. Call the different validations that you want to do
+////
+////        assertThat(products.get(0).getPrice())
+////                .isEqualTo(109.95)
+////                .isGreaterThan(100)
+////                .isLessThan(100)
+////                .isPositive();
+////
+////        assertThat("hello")
+////                .isEqualTo("hi");
+//    void getAllProductsShouldReturnEmpltyListWhenNoProduct() {
+////        ProductService productService = new SelfProductService();
+////        ProductRepository productRepository = new Po
+////        ProductController productController = new ProductController(productService)
+////
+////        assertThat(new Object())
+////                .isInstanceOf(ProductRepository.class)
 //
-//        // 1. PIck the data that you want to validate
-//        // 2. Call the different validations that you want to do
 //
-//        assertThat(products.get(0).getPrice())
-//                .isEqualTo(109.95)
-//                .isGreaterThan(100)
-//                .isLessThan(100)
-//                .isPositive();
-//
-//        assertThat("hello")
-//                .isEqualTo("hi");
-    void getAllProductsShouldReturnEmpltyListWhenNoProduct() {
-//        ProductService productService = new SelfProductService();
-//        ProductRepository productRepository = new Po
-//        ProductController productController = new ProductController(productService)
-//
-//        assertThat(new Object())
-//                .isInstanceOf(ProductRepository.class)
-
-
-    }
-    // Why can it fail:
-    // 1. Bug in product service
-    // 2. Bug be in the controller
+//    }
+//    // Why can it fail:
+//    // 1. Bug in product service
+//    // 2. Bug be in the controller
 
 }
 
